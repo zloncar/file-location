@@ -53,4 +53,8 @@ class RangedLocation
     puts "In RangedLocation #{other}"
     file == other.file && ( line_range == other.line_no || line_range.member?(other.line_no) || other.line_no == :wildcard )
   end
+
+  def to_s
+    "#{file}:#{line_range.min}-#{line_range.max}"
+  end
 end

@@ -105,12 +105,11 @@ describe Location do
       expect( ranged.match?(other) ).to be_true
     end
 
-    it 'does not match a wildcard location in a different file' do
-pending
+    it 'does not match a different range in the same file' do
       ranged   = RangedLocation.new(file, 10..14)
-      wildcard = WildcardLocation.new(other_file)
+      other    = RangedLocation.new(file, 15..16)
 
-      expect( ranged.match?(wildcard) ).to be_false
+      expect( ranged.match?(other) ).to be_false
     end
   end
 
@@ -119,9 +118,14 @@ pending
       expect( location.to_s ).to eq("foo.feature:12")
     end
 
-    it 'shows "file' do
+    it 'shows wildcard location' do
       wildcard = WildcardLocation.new( file )
       expect( wildcard.to_s ).to eq("foo.feature")
+    end
+
+    it 'shows ranged location' do
+      ranged = RangedLocation.new(file, 10..14)
+      expect( ranged.to_s ).to eq("foo.feature:10-14")
     end
   end
 end
