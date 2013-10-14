@@ -45,8 +45,12 @@ class RangedLocation
     @line_range = line_range
   end
 
+  def line_no
+    @line_range
+  end
+
   def match?(other)
     puts "In RangedLocation #{other}"
-    file == other.file && ( line_range.member?(other.line_no) || other.line_no == :wildcard )
+    file == other.file && ( line_range == other.line_no || line_range.member?(other.line_no) || other.line_no == :wildcard )
   end
 end

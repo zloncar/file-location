@@ -97,6 +97,21 @@ describe Location do
 
       expect( ranged.match?(wildcard) ).to be_false
     end
+
+    it 'matches a ranged location' do
+      ranged  = RangedLocation.new(file, 10..14)
+      other   = RangedLocation.new(file, 10..14)
+
+      expect( ranged.match?(other) ).to be_true
+    end
+
+    it 'does not match a wildcard location in a different file' do
+pending
+      ranged   = RangedLocation.new(file, 10..14)
+      wildcard = WildcardLocation.new(other_file)
+
+      expect( ranged.match?(wildcard) ).to be_false
+    end
   end
 
   context 'displaying as a string' do
