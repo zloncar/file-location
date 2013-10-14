@@ -37,9 +37,22 @@ describe Location do
     end
   end
 
+  context 'a ranged locaiton' do
+    it 'matches a precise location within the range in the same file' do
+      ranged = RangedLocation.new(file, 10..14)
+      other  = Location.new(file, 12)
+
+      expect( ranged.match?(other) ).to be_true
+    end
+  end
+
   context 'displaying as a string' do
     it 'shows "file:line_no' do
       expect( location.to_s ).to eq("foo.feature:12")
+    end
+    it 'shows "file' do
+      wildcard = WildcardLocation.new( file )
+      expect( wildcard.to_s ).to eq("foo.feature")
     end
   end
 end

@@ -6,6 +6,7 @@ class Location
   end
 
   def match?(other)
+    puts "In Location #{other}"
     file == other.file && line_no == other.line_no || other.line_no == :wildcard
   end
 
@@ -23,6 +24,26 @@ class WildcardLocation
   end
 
   def match?(other)
+    puts "In WildcardLocation #{other}"
     file == other.file
+  end
+
+  def to_s
+    "#{file}"
+  end
+
+end
+
+class RangedLocation
+  attr_reader :file, :line_range
+
+  def initialize( file, line_range )
+    @file = file
+    @line_range = line_range
+  end
+
+  def match?(other)
+    puts "In RangedLocation #{other}"
+    file == other.file && line_range.member?(other.line_no)
   end
 end
